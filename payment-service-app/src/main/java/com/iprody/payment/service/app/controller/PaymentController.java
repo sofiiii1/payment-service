@@ -16,7 +16,6 @@ public class PaymentController {
     private final Payment payment = new Payment(1L, 99.99);
     private final Map<Long, Payment> payments = new HashMap<>();
 
-    String a = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     public PaymentController() {
         payments.put(1L, new Payment(1L, 99.99));
         payments.put(2L, new Payment(2L, 99.99));
