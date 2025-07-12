@@ -14,7 +14,7 @@ import java.util.Map;
 @RequestMapping("/payments")
 public class PaymentController {
     private final Payment payment = new Payment(1L, 99.99);
-    private final Map<Long, Payment> payments = new HashMap<>();}
+    private final Map<Long, Payment> payments = new HashMap<>();
 
     public PaymentController() {
         payments.put(1L, new Payment(1L, 99.99));
