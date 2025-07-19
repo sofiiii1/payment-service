@@ -17,6 +17,9 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
 
+    - name: Set up Docker Compose
+      run: docker compose up -d
+
     - name: Compile with Maven
       run: mvn -B clean compile
 
