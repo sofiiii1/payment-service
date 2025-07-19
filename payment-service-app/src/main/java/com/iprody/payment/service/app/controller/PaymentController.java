@@ -26,6 +26,7 @@ public class PaymentController {
 
     @GetMapping("/{guid}")
     public Payment getPaymentById(@PathVariable UUID guid) {
-        return this.paymentRepository.findById(guid).orElseThrow(() -> new EntityNotFoundException("Payment not found: " + guid));
+        return this.paymentRepository.findById(guid)
+                .orElseThrow(() -> new EntityNotFoundException("Payment not found: " + guid));
     }
 }
