@@ -18,7 +18,13 @@ jobs:
         distribution: 'temurin'
 
     - name: Compile with Maven
-      run: mvn -B clean compile
+      run: mvn -B clean package -DskipTests
+
+    - name: Build Docker image for payment-service-app
+      run: docker build -t payment-service-app:latest ./payment-service-app
+
+    - name: Set up Docker Compose
+      run: docker compose up -d
 
     - name: Run tests
       run: mvn -B test
