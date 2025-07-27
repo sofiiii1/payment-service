@@ -20,12 +20,13 @@ public class PaymentFilterFactory {
             spec = spec.and(PaymentSpecification.hasCurrency(filter.getCurrency()));
         }
 
-        if (filter.getMinAmount() != null && filter.getMaxAmount() !=null) {
+        if (filter.getMinAmount() != null && filter.getMaxAmount() != null) {
             spec = spec.and(PaymentSpecification.amountBetween(filter.getMinAmount(), filter.getMaxAmount()));
         }
 
         if (filter.getCreatedAtAfter() != null && filter.getCreatedAtBefore() != null) {
-            spec = spec.and(PaymentSpecification.createdBetween(filter.getCreatedAtAfter(), filter.getCreatedAtBefore()));
+            spec = spec.and(PaymentSpecification.createdBetween(filter.getCreatedAtAfter(),
+                    filter.getCreatedAtBefore()));
         }
 
         return spec;

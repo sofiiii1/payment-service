@@ -25,14 +25,14 @@ public class PaymentController {
 
     @GetMapping("/all")
     public Page<Payment> getPayments(@ModelAttribute PaymentFilterDto filter,
-                                     @RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "9") int size,
-                                     @RequestParam(defaultValue = "guid") String sortBy,
-                                     @RequestParam(defaultValue = "desc") String direction) {
-        Sort sort = direction.equalsIgnoreCase("desc")
-                ? Sort.by(sortBy).descending()
-                : Sort.by(sortBy).ascending();
-        Pageable pageable = PageRequest.of(page, size, sort);
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "9") int size,
+        @RequestParam(defaultValue = "guid") String sortBy,
+        @RequestParam(defaultValue = "desc") String direction) {
+        final Sort sort = direction.equalsIgnoreCase("desc")
+            ? Sort.by(sortBy).descending()
+            : Sort.by(sortBy).ascending();
+        final Pageable pageable = PageRequest.of(page, size, sort);
         return this.paymentRepository.findAll(PaymentFilterFactory.fromFilter(filter), pageable);
     }
 
