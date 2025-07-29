@@ -2,9 +2,9 @@ package com.iprody.payment.service.app.controller;
 
 import com.iprody.payment.service.app.persistence.entity.Payment;
 import com.iprody.payment.service.app.persistence.entity.PaymentStatus;
-import com.iprody.payment.service.app.persistency.PaymentFilterFactory;
-import com.iprody.payment.service.app.persistency.PaymentRepository;
-import com.iprody.payment.service.app.persistency.PaymentSpecification;
+import com.iprody.payment.service.app.persistence.PaymentFilterFactory;
+import com.iprody.payment.service.app.persistence.PaymentRepository;
+import com.iprody.payment.service.app.persistence.PaymentSpecification;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
