@@ -2,14 +2,9 @@ package com.iprody.payment.service.app.controller;
 
 import com.iprody.payment.service.app.persistence.entity.Payment;
 import com.iprody.payment.service.app.persistence.entity.PaymentStatus;
-import com.iprody.payment.service.app.persistence.PaymentFilterFactory;
-import com.iprody.payment.service.app.persistence.PaymentRepository;
-import com.iprody.payment.service.app.persistence.PaymentSpecification;
-import jakarta.persistence.EntityNotFoundException;
+import com.iprody.payment.service.app.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +16,7 @@ import java.util.UUID;
 public class PaymentController {
 
     @Autowired
-    private PaymentRepository paymentRepository;
+    private PaymentService paymentService;
 
     @GetMapping("/all")
     public Page<Payment> getPayments(@ModelAttribute PaymentFilterDto filter,
@@ -32,18 +27,16 @@ public class PaymentController {
         final Sort sort = direction.equalsIgnoreCase("desc")
             ? Sort.by(sortBy).descending()
             : Sort.by(sortBy).ascending();
-        final Pageable pageable = PageRequest.of(page, size, sort);
-        return this.paymentRepository.findAll(PaymentFilterFactory.fromFilter(filter), pageable);
+        return this.paymentService.findAll(filter, page, size);
     }
 
     @GetMapping("/{guid}")
     public Payment getPaymentById(@PathVariable UUID guid) {
-        return this.paymentRepository.findById(guid)
-                .orElseThrow(() -> new EntityNotFoundException("Payment not found: " + guid));
+        return this.paymentService.findById(guid);
     }
 
     @GetMapping("/by_status/{status}")
     public List<Payment> getByStatus(@PathVariable PaymentStatus status) {
-        return paymentRepository.findAll(PaymentSpecification.hasStatus(status));
+        return paymentService.findByStatus(status);
     }
 }
