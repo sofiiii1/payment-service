@@ -1,0 +1,52 @@
+Get by id request:
+curl -X GET http://localhost:8080/payments/d4f5e336-bbdf-4c22-8abc-445566778899
+
+Get by id response:
+{"guid":"d4f5e336-bbdf-4c22-8abc-445566778899","inquiryRefId":"d5c6b7a8-e9f0-1234-5678-90abcdef1234","amount":500.00,"currency":"GBP","transactionRefId":"e5f6a7b8-2233-4455-6677-889900aabbcc","status":"DECLINED","note":"new note","createdAt":"2025-07-26T12:45:00Z","updatedAt":"2025-07-26T12:45:00Z"}
+
+Search request:
+curl -G http://localhost:8080/payments/all --data-urlencode "status=APPROVED" --data-urlencode "currency=USD" --data-urlencode "minAmount=10.00" --data-urlencode "page=0" --data-urlencode "size=10"
+
+Search response:
+{"content":[{"guid":"a1e2b003-7fa5-4b6e-83e2-012345678901","inquiryRefId":"1d4b46b6-8a17-4e2a-8bb2-112233445566","amount":99.99,"currency":"USD","transactionRefId":"b1a2c3d4-e5f6-7890-abcd-1234567890ab","status":"APPROVED","note":"Payment for order #1001","createdAt":"2025-07-26T09:00:00Z","updatedAt":"2025-07-26T09:00:00Z"},{"guid":"e5a6f447-cc10-4d33-7a98-556677889900","inquiryRefId":"c6d7e8f9-a0b1-2345-6789-0abcdef12345","amount":12.00,"currency":"USD","transactionRefId":"f6a7b8c9-3344-5566-7788-9900aabbccdd","status":"APPROVED","note":"Monthly subscription","createdAt":"2025-07-26T13:20:00Z","updatedAt":"2025-07-26T13:20:00Z"},{"guid":"b8d9c77a-ff43-7066-4d65-889900112233","inquiryRefId":"99aabbcc-d3e4-5678-9012-cdef12345678","amount":75.20,"currency":"USD","transactionRefId":"c9d0e1f2-6677-8899-0011-bbccddeeff00","status":"APPROVED","note":"Promo applied","createdAt":"2025-07-26T15:30:00Z","updatedAt":"2025-07-26T15:30:00Z"},{"guid":"e1a2faad-2276-a399-1a32-bbccddeeff00","inquiryRefId":"66ddeeff-a6b7-8901-2345-f12345678901","amount":785.99,"currency":"USD","transactionRefId":"f2a3b4c5-9900-1122-3344-eeff00112233","status":"APPROVED","note":"Invoice #2025-A1","createdAt":"2025-07-26T18:15:00Z","updatedAt":"2025-07-26T18:15:00Z"},{"guid":"87654321-4321-4321-4321-fedcba987654","inquiryRefId":"7890abcd-ef12-3456-7890-abcdefabcdef","amount":250.50,"currency":"USD","transactionRefId":"ff00ff00-ff00-ff00-ff00-ff00ff00ff00","status":"APPROVED","note":"Payment processed successfully","createdAt":"2025-07-26T10:00:00Z","updatedAt":"2025-07-26T10:00:00Z"},{"guid":"0f1e2d3c-4b5a-6978-8a9b-acbdcedfe0f1","inquiryRefId":"01020304-0506-0708-090a-0b0c0d0e0f00","amount":750.00,"currency":"USD","transactionRefId":"f0e1d2c3-b4a5-6789-aaaa-bbccddeeff00","status":"APPROVED","note":"Subscription renewal","createdAt":"2025-07-27T08:00:00Z","updatedAt":"2025-07-27T08:00:00Z"}],"pageable":{"pageNumber":0,"pageSize":10,"sort":{"empty":true,"unsorted":true,"sorted":false},"offset":0,"unpaged":false,"paged":true},"totalElements":6,"totalPages":1,"last":true,"size":10,"number":0,"sort":{"empty":true,"unsorted":true,"sorted":false},"numberOfElements":6,"first":true,"empty":false}
+
+Create request:
+curl -X POST http://localhost:8080/payments -H "Content-Type: application/json" -d '{
+"guid": "d4f5e336-bbdf-4c22-8abc-445566778899",
+    "inquiryRefId": "d5c6b7a8-e9f0-1234-5678-90abcdef1234",
+    "amount": 500.00,
+    "currency": "GBP",
+    "transactionRefId": "e5f6a7b8-2233-4455-6677-889900aabbcc",
+    "status": "APPROVED",
+    "note": "Refund issued",
+    "createdAt": "2025-07-26T12:45:00Z",
+    "updatedAt": "2025-07-26T12:45:00Z"
+}'
+
+Create response:
+{"guid":"5e90f08e-408a-4b10-a9b3-c98508c5a6a2","inquiryRefId":"d5c6b7a8-e9f0-1234-5678-90abcdef1234","amount":500.00,"currency":"GBP","transactionRefId":"e5f6a7b8-2233-4455-6677-889900aabbcc","status":"APPROVED","note":"Refund issued","createdAt":"2025-07-26T12:45:00Z","updatedAt":"2025-07-26T12:45:00Z"}
+
+Delete request:
+curl -X DELETE http://localhost:8080/payments/d4f5e336-bbdf-4c22-8abc-445566778899
+
+Update request:
+curl -X PUT http://localhost:8080/payments/b8d9c77a-ff43-7066-4d65-889900112233 -H "Content-Type: application/json" -d '{
+    "guid": "b8d9c77a-ff43-7066-4d65-889900112233",
+    "inquiryRefId": "d5c6b7a8-e9f0-1234-5678-90abcdef1234",
+    "amount": 500.00,
+    "currency": "GBP",
+    "transactionRefId": "e5f6a7b8-2233-4455-6677-889900aabbcc",
+    "status": "DECLINED",
+    "note": "DECLINED",
+    "createdAt": "2025-07-26T12:45:00Z",
+    "updatedAt": "2025-07-26T12:45:00Z"
+}'
+
+Update response:
+{"guid":"b8d9c77a-ff43-7066-4d65-889900112233","inquiryRefId":"d5c6b7a8-e9f0-1234-5678-90abcdef1234","amount":500.00,"currency":"GBP","transactionRefId":"e5f6a7b8-2233-4455-6677-889900aabbcc","status":"DECLINED","note":"DECLINED","createdAt":"2025-07-26T12:45:00Z","updatedAt":"2025-07-26T12:45:00Z"}
+
+Update status request:
+curl -X PATCH http://localhost:8080/payments/e5a6f447-cc10-4d33-7a98-556677889900/status -H "Content-Type: application/json"  -d '{ "status": "DECLINED" }'
+
+Update status response:
+{"guid":"e5a6f447-cc10-4d33-7a98-556677889900","inquiryRefId":"c6d7e8f9-a0b1-2345-6789-0abcdef12345","amount":12.00,"currency":"USD","transactionRefId":"f6a7b8c9-3344-5566-7788-9900aabbccdd","status":"DECLINED","note":"Monthly subscription","createdAt":"2025-07-26T13:20:00Z","updatedAt":"2025-07-26T13:20:00Z"}
