@@ -1,6 +1,7 @@
 package com.iprody.payment.service.service;
 
 import com.iprody.payment.service.app.controller.PaymentFilterDto;
+import com.iprody.payment.service.app.exception.NotFoundException;
 import com.iprody.payment.service.app.mapper.PaymentMapper;
 import com.iprody.payment.service.app.persistence.PaymentRepository;
 import com.iprody.payment.service.app.persistence.entity.Payment;
@@ -119,7 +120,7 @@ public class PaymentServiceTest {
         when(paymentRepository.findById(guid)).thenReturn(Optional.empty());
 
         //then
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> paymentService.findById(guid));
+        Exception exception = assertThrows(NotFoundException.class, () -> paymentService.findById(guid));
         assertEquals("Payment not found", exception.getMessage());
         verify(paymentRepository).findById(guid);
         verifyNoInteractions(paymentMapper);
