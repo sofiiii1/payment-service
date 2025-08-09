@@ -3,7 +3,7 @@ package com.iprody.payment.service.mapper;
 import com.iprody.payment.service.app.mapper.PaymentMapper;
 import com.iprody.payment.service.app.persistence.entity.Payment;
 import com.iprody.payment.service.app.persistence.entity.PaymentStatus;
-import com.iprody.payment.service.app.service.PaymentDto;
+import com.iprody.payment.service.app.dto.PaymentDto;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 

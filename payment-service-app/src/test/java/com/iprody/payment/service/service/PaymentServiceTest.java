@@ -5,7 +5,7 @@ import com.iprody.payment.service.app.mapper.PaymentMapper;
 import com.iprody.payment.service.app.persistence.PaymentRepository;
 import com.iprody.payment.service.app.persistence.entity.Payment;
 import com.iprody.payment.service.app.persistence.entity.PaymentStatus;
-import com.iprody.payment.service.app.service.PaymentDto;
+import com.iprody.payment.service.app.dto.PaymentDto;
 import com.iprody.payment.service.app.service.PaymentServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
