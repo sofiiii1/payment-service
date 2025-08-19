@@ -17,7 +17,9 @@ public class GlobalExceptionHandler {
         return new ErrorDto(
                 HttpStatus.NOT_FOUND.value(),
                 e.getLocalizedMessage(),
-                Instant.now()
+                Instant.now(),
+                e.getOperation(),
+                e.getEntityId()
         );
     }
 
@@ -27,7 +29,9 @@ public class GlobalExceptionHandler {
         return new ErrorDto(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 e.getLocalizedMessage(),
-                Instant.now()
+                Instant.now(),
+                null,
+                null
         );
     }
 
@@ -37,7 +41,9 @@ public class GlobalExceptionHandler {
         return new ErrorDto(
                 HttpStatus.BAD_REQUEST.value(),
                 e.getLocalizedMessage(),
-                Instant.now()
+                Instant.now(),
+                null,
+                null
         );
     }
 }

@@ -34,7 +34,7 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentDto findById(UUID guid) {
         return paymentRepository.findById(guid)
                 .map(paymentMapper::toDto)
-                .orElseThrow(() -> new NotFoundException("Payment not found"));
+                .orElseThrow(() -> new NotFoundException("Payment not found", "findById", guid));
     }
 
     public List<PaymentDto> findByStatus(PaymentStatus status) {
@@ -51,7 +51,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     public PaymentDto update(UUID id, PaymentDto dto) {
         paymentRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Payment not found" + id));
+            .orElseThrow(() -> new NotFoundException("Payment not found", "update", id));
         final Payment updated = paymentMapper.toEntity(dto);
         updated.setGuid(id);
         final Payment saved = paymentRepository.save(updated);
@@ -60,7 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     public void delete(UUID id) {
         if (!paymentRepository.existsById(id)) {
-            throw new NotFoundException("Payment not found" + id);
+            throw new NotFoundException("Payment not found", "delete", id);
         }
         paymentRepository.deleteById(id);
     }
@@ -68,7 +68,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public PaymentDto updateStatus(UUID id, PaymentStatus status) {
         final Payment payment = paymentRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Payment not found" + id));
+            .orElseThrow(() -> new NotFoundException("Payment not found", "update status", id));
         payment.setStatus(status);
         final Payment saved = paymentRepository.save(payment);
         return paymentMapper.toDto(saved);
@@ -77,7 +77,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public PaymentDto updateNote(UUID id, String note) {
         final Payment payment = paymentRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Payment not found" + id));
+            .orElseThrow(() -> new NotFoundException("Payment not found", "update note", id));
         payment.setNote(note);
         final Payment saved = paymentRepository.save(payment);
         return paymentMapper.toDto(saved);
