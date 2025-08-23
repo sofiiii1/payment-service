@@ -14,22 +14,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+        final JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
         jwtConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRealmRoleConverter());
 
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/payments/**")
-                        .hasAnyRole("reader", "admin")
-                        .anyRequest().authenticated()
-                )
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt ->
-                                jwt.jwtAuthenticationConverter(jwtConverter))
-
-                );
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/payments/**")
+            .hasAnyRole("reader", "admin")
+            .anyRequest().authenticated())
+            .oauth2ResourceServer(oauth2 -> oauth2
+            .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter))
+            );
         return http.build();
     }
-
 }
