@@ -3,6 +3,7 @@ package com.iprody.payment.service.app.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Table(name = "payment")
 @Getter
 @Setter
+@ToString
 public class Payment {
     @Id
     @Column(nullable = false, unique = true)
