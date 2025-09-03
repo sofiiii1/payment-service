@@ -1,9 +1,12 @@
 package com.iprody.payment.service.app.service;
 
+import com.iprody.payment.service.app.async.AsyncSender;
+import com.iprody.payment.service.app.async.XPaymentAdapterRequestMessage;
 import com.iprody.payment.service.app.controller.PaymentFilterDto;
 import com.iprody.payment.service.app.dto.PaymentDto;
 import com.iprody.payment.service.app.exception.NotFoundException;
 import com.iprody.payment.service.app.mapper.PaymentMapper;
+import com.iprody.payment.service.app.mapper.XPaymentAdapterMapper;
 import com.iprody.payment.service.app.persistence.PaymentFilterFactory;
 import com.iprody.payment.service.app.persistence.PaymentRepository;
 import com.iprody.payment.service.app.persistence.entity.Payment;
@@ -23,6 +26,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final PaymentMapper paymentMapper;
+    private final XPaymentAdapterMapper xPaymentAdapterMapper;
+    private final AsyncSender<XPaymentAdapterRequestMessage> asyncSender;
 
     public Page<PaymentDto> findAll(PaymentFilterDto paymentFilterDto, int page, int size) {
         return paymentRepository.findAll(
@@ -45,7 +50,13 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentDto create(PaymentDto dto) {
         final Payment entity = paymentMapper.toEntity(dto);
         entity.setGuid(UUID.randomUUID());
+        entity.setStatus(PaymentStatus.PENDING);
+
         final Payment saved = paymentRepository.save(entity);
+
+        final XPaymentAdapterRequestMessage requestMessage = xPaymentAdapterMapper
+            .toXPaymentAdapterRequestMessage(saved);
+        asyncSender.send(requestMessage);
         return paymentMapper.toDto(saved);
     }
 
