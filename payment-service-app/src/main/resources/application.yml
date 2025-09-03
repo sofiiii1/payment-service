@@ -39,10 +39,9 @@ spring:
       properties:
         spring.json.trusted.packages: "com.iprody.payment.service.app.async"
         spring.json.value.default.type: "com.iprody.payment.service.app.async.XPaymentAdapterResponseMessage"
-
-  listener:
-    ack-mode: manual
-    concurrency: 1
+    listener:
+      ack-mode: manual
+      concurrency: 1
 
 app:
   kafka:
