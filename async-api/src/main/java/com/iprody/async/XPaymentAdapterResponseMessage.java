@@ -1,8 +1,4 @@
-package com.iprody.payment.service.app.async;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+package com.iprody.async;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -19,9 +15,6 @@ import java.util.UUID;
  идентификатор сообщения
  * и метку времени его возникновения.
  */
-@Getter
-@Setter
-@ToString
 public class XPaymentAdapterResponseMessage implements Message {
     /**
      * Уникальный идентификатор сообщения.
@@ -61,5 +54,57 @@ public class XPaymentAdapterResponseMessage implements Message {
     @Override
     public OffsetDateTime getOccurredAt() {
         return occurredAt;
+    }
+
+    public UUID getMessageGuid() {
+        return messageGuid;
+    }
+
+    public void setMessageGuid(UUID messageGuid) {
+        this.messageGuid = messageGuid;
+    }
+
+    public UUID getPaymentGuid() {
+        return paymentGuid;
+    }
+
+    public void setPaymentGuid(UUID paymentGuid) {
+        this.paymentGuid = paymentGuid;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public UUID getTransactionRefId() {
+        return transactionRefId;
+    }
+
+    public void setTransactionRefId(UUID transactionRefId) {
+        this.transactionRefId = transactionRefId;
+    }
+
+    public XPaymentAdapterStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(XPaymentAdapterStatus status) {
+        this.status = status;
+    }
+
+    public void setOccurredAt(OffsetDateTime occurredAt) {
+        this.occurredAt = occurredAt;
     }
 }

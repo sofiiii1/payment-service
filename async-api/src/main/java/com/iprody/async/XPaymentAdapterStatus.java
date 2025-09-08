@@ -1,4 +1,4 @@
-package com.iprody.payment.service.app.async;
+package com.iprody.async;
 
 public enum XPaymentAdapterStatus {
     PROCESSING,

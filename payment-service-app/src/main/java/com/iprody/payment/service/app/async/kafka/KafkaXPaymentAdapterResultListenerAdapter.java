@@ -1,8 +1,8 @@
 package com.iprody.payment.service.app.async.kafka;
 
-import com.iprody.payment.service.app.async.AsyncListener;
-import com.iprody.payment.service.app.async.MessageHandler;
-import com.iprody.payment.service.app.async.XPaymentAdapterResponseMessage;
+import com.iprody.async.AsyncListener;
+import com.iprody.async.MessageHandler;
+import com.iprody.async.XPaymentAdapterResponseMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -36,7 +36,7 @@ class KafkaXPaymentAdapterResultListenerAdapter implements AsyncListener<XPaymen
             ack.acknowledge();
         } catch (Exception e) {
             log.error("Error handling XPayment Adapter response for paymentGuid={}", message.getPaymentGuid(), e);
-            throw e; // отдаём в error handler Spring Kafka
+            throw e;
         }
     }
 }

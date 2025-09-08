@@ -1,7 +1,7 @@
 package com.iprody.payment.service.app.service;
 
-import com.iprody.payment.service.app.async.AsyncSender;
-import com.iprody.payment.service.app.async.XPaymentAdapterRequestMessage;
+import com.iprody.async.AsyncSender;
+import com.iprody.async.XPaymentAdapterRequestMessage;
 import com.iprody.payment.service.app.controller.PaymentFilterDto;
 import com.iprody.payment.service.app.dto.PaymentDto;
 import com.iprody.payment.service.app.exception.NotFoundException;

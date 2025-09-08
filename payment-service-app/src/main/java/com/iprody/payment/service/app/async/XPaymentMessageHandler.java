@@ -1,5 +1,8 @@
 package com.iprody.payment.service.app.async;
 
+import com.iprody.async.MessageHandler;
+import com.iprody.async.XPaymentAdapterResponseMessage;
+import com.iprody.async.XPaymentAdapterStatus;
 import com.iprody.payment.service.app.exception.NotFoundException;
 import com.iprody.payment.service.app.persistence.PaymentRepository;
 import com.iprody.payment.service.app.persistence.entity.Payment;
