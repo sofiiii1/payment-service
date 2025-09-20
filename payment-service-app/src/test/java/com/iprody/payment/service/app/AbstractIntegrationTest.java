@@ -3,17 +3,19 @@ package com.iprody.payment.service.app;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.containers.wait.strategy.WaitAllStrategy;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import java.time.Duration;
 
 @SpringBootTest
 @Testcontainers
-public abstract class AbstractPostgresIntegrationTest {
+public abstract class AbstractIntegrationTest {
 
     @Container
     protected static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>("postgres:16")
@@ -25,6 +27,11 @@ public abstract class AbstractPostgresIntegrationTest {
                     .withStrategy(Wait.forLogMessage(".*database system is ready to accept connections.*", 2)))
             .withStartupTimeout(Duration.ofSeconds(200));
 
+    @Container
+    protected static final KafkaContainer KAFKA = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.7.0"))
+            .withKraft()
+            .withStartupTimeout(Duration.ofSeconds(120));
+
     @DynamicPropertySource
     static void overrideProps(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);
@@ -34,6 +41,8 @@ public abstract class AbstractPostgresIntegrationTest {
                 POSTGRES::getPassword);
         registry.add("spring.liquibase.change-log", () ->
                 "classpath:/db/master-test-changelog.yaml");
+
+        registry.add("spring.kafka.bootstrap-servers", KAFKA::getBootstrapServers);
     }
 
 }
