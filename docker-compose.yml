@@ -2,9 +2,34 @@ version: '3.8'
 
 services:
   payment-service-app:
+    build:
+      context: ./payment-service-app
+      dockerfile: Dockerfile
     image: payment-service-app:latest
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/payment-db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: secret
     ports:
-      - "8080:8080"
+      - "8080:8081"
+
+  x-payment-adapter-app:
+    build:
+      context: ./xpayment-adapter-app
+      dockerfile: Dockerfile
+    image: xpayment-adapter-app:latest
+    ports:
+      - "8082:8082"
+
+  xpayment-api-main:
+    build:
+      context: ./xpayment-api-main
+      dockerfile: Dockerfile
+    image: xpayment-api-main-xpayment-api:latest
+    ports:
+      - "9999:9999"
 
   postgres:
     image: postgres:16
