@@ -1,4 +1,4 @@
-package com.iprody.payment.service.app.async;
+package com.iprody.async;
 
 /**
  * Интерфейс отправки сообщений для асинхронной обработки
