@@ -1,5 +1,6 @@
 package com.iprody.xpaymentadapterapp.dto;
 
+import com.iprody.async.XPaymentAdapterStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class ChargeResponseDto {
 
     private String receiptEmail;
 
-    private String status;
+    private XPaymentAdapterStatus status;
 
     private Map<String, Object> metadata;
 }
