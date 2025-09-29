@@ -1,0 +1,6 @@
+kraft:
+  enabled: true # режим KRaft (по умолчанию true в новых релизах)
+
+listeners:
+  client:
+    protocol: PLAINTEXT # для простоты: без TLS/SASL на учебном стенде
