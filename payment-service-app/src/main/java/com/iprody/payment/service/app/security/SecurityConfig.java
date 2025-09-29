@@ -17,15 +17,17 @@ public class SecurityConfig {
         final JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
         jwtConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRealmRoleConverter());
 
-        http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/payments/**")
-            .hasAnyRole("reader", "admin")
-            .anyRequest().authenticated())
-            .oauth2ResourceServer(oauth2 -> oauth2
-            .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter))
-            );
+        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable);
+//        http
+//            .csrf(AbstractHttpConfigurer::disable)
+//            .authorizeHttpRequests(auth -> auth
+//            .requestMatchers("/payments/**")
+//            .hasAnyRole("reader", "admin")
+//            .anyRequest().authenticated())
+//            .oauth2ResourceServer(oauth2 -> oauth2
+//            .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter))
+//            );
         return http.build();
     }
 }
